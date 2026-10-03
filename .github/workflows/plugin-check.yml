@@ -13,6 +13,6 @@ permissions:
 
 jobs:
   validate:
-    uses: Pushary/.github/.github/workflows/validate-claude-plugin.yml@afd4e0dfe146648f1211f56bd783317c4be34dfe
+    uses: Pushary/.github/.github/workflows/validate-claude-plugin.yml@6a89dde141a3020cb4195ab1a02ebc8c51f9c2bc
     with:
       full_matrix: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
