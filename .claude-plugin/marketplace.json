@@ -1,0 +1,15 @@
+{
+  "name": "pushary-claude-plugin",
+  "description": "Pushary questions and task updates for Claude Chat, Cowork, and Claude Code.",
+  "owner": {
+    "name": "Pushary",
+    "email": "aadil@pushary.com"
+  },
+  "plugins": [
+    {
+      "name": "pushary",
+      "source": "./",
+      "description": "Get Claude task updates and answer its questions from your phone or Mac."
+    }
+  ]
+}

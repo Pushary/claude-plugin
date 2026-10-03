@@ -1,0 +1,23 @@
+{
+  "name": "pushary",
+  "displayName": "Pushary for Claude",
+  "version": "0.1.0",
+  "description": "Get Claude task updates and answer its questions from your phone or Mac. Works with Chat, Cowork, and Claude Code through the Pushary connector.",
+  "author": {
+    "name": "Pushary",
+    "email": "aadil@pushary.com",
+    "url": "https://pushary.com"
+  },
+  "homepage": "https://pushary.com/docs/agents/guides/claude-desktop",
+  "repository": "https://github.com/Pushary/claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "notifications",
+    "push-notifications",
+    "claude",
+    "claude-chat",
+    "claude-code",
+    "cowork",
+    "mcp"
+  ]
+}
