@@ -1,12 +1,18 @@
 # Pushary for Claude
 
-Get Claude task updates and answer its questions from your phone or Mac notch. The plugin bundles a skill and Pushary's hosted OAuth connector for Claude Chat, Cowork, and Claude Code.
+[![Plugin checks](https://github.com/Pushary/claude-plugin/actions/workflows/plugin-check.yml/badge.svg)](https://github.com/Pushary/claude-plugin/actions/workflows/plugin-check.yml)
 
-The older [Pushary for Cowork plugin](https://github.com/Pushary/cowork-plugin) remains available for Cowork. Choose one Pushary plugin per app to avoid duplicate connectors. Both plugins use the same shared skill; its `pushary-cowork` identifier is retained for compatibility.
+Get Claude task updates and answer its questions from your phone or Mac. This plugin connects Claude Chat and Claude Code to your Pushary account.
 
-## Install
+## Before you install
 
-In Claude Chat or Cowork, open **Customize > Plugins > Add > Add marketplace** and add `https://github.com/Pushary/claude-plugin`. Install **Pushary for Claude** from that marketplace. This GitHub installation does not require a directory listing.
+The plugin source is MIT-licensed. Phone and Mac delivery use the hosted Pushary service, which requires a [Pushary plan](https://pushary.com/pricing) and a connected device. Install [Pushary on your phone or Mac](https://pushary.com/download) and use the same account when connecting Claude. The hosted backend is not included in this repo.
+
+Chat and Cowork plugins require a paid Claude plan. See [Claude’s supported plans and apps](https://support.claude.com/en/articles/13837440-use-plugins-in-claude).
+
+## Install and connect
+
+In Claude Chat, open **Customize > Plugins > Add > Add marketplace**, add `https://github.com/Pushary/claude-plugin`, and install **Pushary for Claude**.
 
 In Claude Code:
 
@@ -15,34 +21,39 @@ In Claude Code:
 /plugin install pushary@pushary-claude-plugin
 ```
 
-## Setup
+In Chat, connect Pushary from the plugin's **Connectors** tab and enable it in the conversation. In Claude Code, open `/mcp` and follow the OAuth sign-in prompt.
 
-In Chat or Cowork, open the plugin's **Connectors** tab, connect Pushary, and sign in with the same Pushary account used by your phone and Mac app. Enable Pushary in the conversation. If the connector is missing, add `https://pushary.com/api/mcp/mcp` under **Customize > Connectors > Add custom connector** and leave OAuth Client ID and Secret empty. In Claude Code, use `/mcp` to check the connection and follow the OAuth sign-in prompt.
+If your Claude version does not add the connector, add `https://pushary.com/api/mcp/mcp` under **Customize > Connectors > Add custom connector**. Leave OAuth Client ID and Secret empty. No Pushary CLI or API key is needed for this setup. See [SETUP.md](SETUP.md) for verification and recovery.
 
-Follow [SETUP.md](SETUP.md) for account setup and verification. The connector uses OAuth; no local CLI, API key, or package installation is required.
+## Try it
 
-Use the bundled skill to guide when Claude asks questions and sends updates. In Cowork, standing instructions in **Settings > Cowork** are also supported. Ask Claude a harmless Pushary test question, answer from your phone or notch, and verify Claude receives the answer. A successful notification alone does not verify answers.
+Ask Claude:
 
-## Included
+```text
+Use Pushary to ask which summary format I want: bullets or a paragraph.
+Wait for my answer and use that format.
+```
 
-- `.mcp.json`: the public OAuth connector, with no embedded key.
-- `skills/pushary-cowork/SKILL.md`: when to ask, notify, and hand off unanswered questions.
-- `SETUP.md`: account setup, verification, and recovery.
+Answer from your phone or Mac and check that Claude receives the answer. Then try:
 
-## Capabilities
+```text
+When you finish this task, send me a Pushary notification with the result.
+```
 
-| Surface | Questions and task updates | Native permission interception in this bundle |
-| --- | --- | --- |
-| Claude Chat: web, desktop, and mobile | Through the remote connector | None |
-| Cowork | Through the remote connector | None |
-| Claude Code | Through the remote connector | None |
+## What it can do
 
-Claude chooses when to call the tools. This bundle can wait for a question it asked and receive your answer on that request. It cannot intercept native permission prompts, send new work into an ended turn, or launch tasks.
+The shared skill guides when Claude asks questions and sends updates. Claude chooses when to call these tools. The plugin can receive an answer to a question it asked; it does not intercept native permission prompts, start new tasks, or resume an ended turn. It installs no native hooks.
 
-For Claude Code approval hooks, use the separate [Pushary Claude Code integration](https://github.com/Pushary/pushary-skill). Choose one setup path rather than installing duplicate Pushary connectors. Chat ignores hooks; this bundle installs none. [Anthropic's platform support table](https://claude.com/docs/plugins/platform-support) describes what each app loads.
+For Cowork, the existing [Pushary for Cowork plugin](https://github.com/Pushary/cowork-plugin) remains available. The shared Claude plugin format also works in Cowork. Choose one Pushary installation per app to avoid duplicate tools. For native Claude Code approval hooks, use the separate [Claude Code integration](https://github.com/Pushary/pushary-skill).
 
-## Data sent to Pushary
+## Verification
 
-Claude sends the arguments of Pushary tool calls to `https://pushary.com/api/mcp/mcp`. These can include question text, answer options, notification titles and summaries, optional context, and agent and session identifiers. Pushary returns your answers to Claude and delivers updates according to your account settings. Keep these messages brief and leave out passwords, API keys, file contents, and private conversation history. The plugin does not install a local process or upload a transcript automatically. See the [privacy policy](https://pushary.com/privacy) for storage and retention details.
+[CI](https://github.com/Pushary/claude-plugin/actions/workflows/plugin-check.yml) validates both manifests with pinned Claude Code, installs the checked-out package in an isolated profile, and checks its version, loaded skill, lack of native hooks, and OAuth connector configuration. Changes run on Linux; releases and manual checks also run on macOS and Windows. No account credentials are used.
 
-[Full guide](https://pushary.com/docs/agents/guides/claude-desktop) · [Plugin support](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) · [Pushary support](https://pushary.com/support)
+CI does not test account OAuth or device delivery. Verify those with the [setup checks](SETUP.md#4-verify-both-directions). Directory review is separate; this GitHub release is not an approved Claude directory listing.
+
+## Privacy and contributing
+
+Claude sends the arguments of Pushary tool calls to the hosted connector: questions, answer options, updates, optional context, and agent or session identifiers. Keep secrets, file contents, and private conversation history out of these messages. The plugin does not upload a transcript automatically. Read the [privacy policy](https://pushary.com/privacy) for retention details.
+
+[Report a bug](https://github.com/Pushary/claude-plugin/issues/new/choose) · [Contribute](CONTRIBUTING.md) · [Security reports](https://github.com/Pushary/.github/blob/main/SECURITY.md) · [Support](https://pushary.com/support) · [Full guide](https://pushary.com/docs/agents/guides/claude-desktop)

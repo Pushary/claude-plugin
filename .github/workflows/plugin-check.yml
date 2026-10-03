@@ -1,0 +1,18 @@
+name: Plugin checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: Pushary/.github/.github/workflows/validate-claude-plugin.yml@afd4e0dfe146648f1211f56bd783317c4be34dfe
+    with:
+      full_matrix: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}

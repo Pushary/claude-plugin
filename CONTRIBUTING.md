@@ -1,40 +1,35 @@
 # Contributing
 
-Bug reports, documentation fixes, runnable examples, and patches are welcome.
-Open an issue in this public repository, or fork it and open a pull request here.
-You do not need access to Pushary's private repository to contribute.
+Bug reports, clearer instructions, and patches are welcome. Open an issue or pull request in the repository you installed from. Include your Claude version, operating system, plugin version, and the steps that reproduce the problem. Leave out keys, tokens, account details, and private transcripts.
 
-## Start small
+## Check a change
 
-Pick an unassigned `good first issue`, explain the change you plan, and include
-steps that another developer can use to verify it. For a bug, include the package
-and framework versions, your OS, expected behavior, and a minimal reproduction.
-Never include API keys, enrollment links, customer data, or private transcripts.
+These packages contain Markdown and JSON, not an npm application. Install Node.js 22 or newer and Claude Code, then run from the repository root:
 
-For a JavaScript adapter, run `npm install`, `npm run typecheck`, `npm test`, and
-`npm run build` in your clone. Follow the README for Python or plugin-specific
-setup. Documentation changes should have working links and commands you tried.
+```sh
+npm install --global @anthropic-ai/claude-code@2.1.288
+claude plugin validate . --strict
+claude plugin validate .claude-plugin/plugin.json --strict
+```
 
-## How your patch ships
+Test installation in a separate profile. On Windows, use Git Bash:
 
-This repository is a public mirror of a directory in Pushary's private monorepo.
-We review your PR here, then apply accepted changes upstream before publishing
-this mirror. A direct merge into the mirror could be overwritten by the next sync.
+```sh
+export CLAUDE_CONFIG_DIR="$(mktemp -d)"
+claude plugin marketplace add "$PWD"
+claude plugin install pushary@pushary-claude-plugin --json
+claude plugin list --json
+claude plugin details pushary@pushary-claude-plugin
+```
 
-The maintainer handling your PR will:
+The installed version must match `.claude-plugin/plugin.json`, and the MCP server must be `https://pushary.com/api/mcp/mcp`. The inventory must show one skill, `pushary-cowork`, and zero hooks. CI runs these checks on Linux for changes, and on Linux, macOS, and Windows for releases and manual runs. The checks do not sign in to a Pushary account or prove device delivery. State any live checks you ran separately.
 
-1. Review the patch and discuss requested changes in the public PR.
-2. Apply accepted changes upstream, retaining author attribution in that commit.
-3. Run the relevant checks, release a package if needed, and sync this repository.
-4. Link the public sync commit and released version (when applicable) back to your
-   PR, credit your contribution publicly, then close it as shipped.
+## How a patch ships
 
-Public sync commits squash private history, so upstream author attribution does
-not automatically appear in this mirror's GitHub contributor graph. The public
-PR and shipping comment preserve visible credit. An upstream-only patch is not
-considered shipped. If we cannot accept a change, we explain why on the PR.
+This repo is a public mirror. Maintainers apply accepted changes to the source monorepo, run the checks, and publish a new snapshot here. A direct mirror-only change can be overwritten by the next sync. You do not need access to the private repo to contribute.
+
+The shared skill is generated from one source. Report a skill change in your public PR; maintainers update the source and both plugin copies together. Your public PR records the contribution, and the maintainer credits it when the public snapshot ships.
 
 ## Security
 
-Report vulnerabilities privately to aadil@pushary.com instead of opening a public
-issue. If this repository has a SECURITY.md, follow its disclosure guidance.
+Report vulnerabilities privately to **aadil@pushary.com**, or follow the [organization security policy](https://github.com/Pushary/.github/blob/main/SECURITY.md). Do not open a public issue with an exploit or credentials.

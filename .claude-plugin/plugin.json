@@ -1,7 +1,7 @@
 {
   "name": "pushary",
   "displayName": "Pushary for Claude",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get Claude task updates and answer its questions from your phone or Mac. Works with Chat, Cowork, and Claude Code through the Pushary connector.",
   "author": {
     "name": "Pushary",
