@@ -16,7 +16,7 @@ Test installation in a separate profile. On Windows, use Git Bash:
 
 ```sh
 export CLAUDE_CONFIG_DIR="$(mktemp -d)"
-claude plugin marketplace add "$PWD"
+claude plugin marketplace add ./
 claude plugin install pushary@pushary-claude-plugin --json
 claude plugin list --json
 claude plugin details pushary@pushary-claude-plugin
