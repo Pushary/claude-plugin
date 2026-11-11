@@ -46,6 +46,8 @@ The shared skill guides when Claude asks questions and sends updates. Claude cho
 
 For Cowork, the existing [Pushary for Cowork plugin](https://github.com/Pushary/cowork-plugin) remains available. The shared Claude plugin format also works in Cowork. Choose one Pushary installation per app to avoid duplicate tools. For native Claude Code approval hooks, use the separate [Claude Code integration](https://github.com/Pushary/pushary-skill).
 
+To route native Claude Code approvals to a teammate, connect Claude Code with the CLI integration above and follow the [Pushary for Teams setup](https://pushary.com/teams?utm_source=github&utm_medium=oss-adapter&utm_campaign=claude-plugin&utm_content=readme-teams).
+
 ## Verification
 
 [CI](https://github.com/Pushary/claude-plugin/actions/workflows/plugin-check.yml) validates both manifests with pinned Claude Code, installs the checked-out package in an isolated profile, and checks its version, loaded skill, lack of native hooks, and OAuth connector configuration. Changes run on Linux; releases and manual checks also run on macOS and Windows. No account credentials are used.
